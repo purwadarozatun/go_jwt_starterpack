@@ -1,6 +1,7 @@
 package user
 
 import (
+	"company/myproject/databases"
 	"company/myproject/deps"
 
 	"github.com/gin-gonic/gin"
@@ -34,5 +35,11 @@ func Update(c *gin.Context) {
 func Delete(c *gin.Context) {
 	err := DoDelete(c, c.Param("id"))
 	deps.SendStatus(c, err)
+	return
+}
+
+func Spec(c *gin.Context) {
+	data, err := databases.BuildSpec(c, "/", User{})
+	deps.SendData(c, data, err)
 	return
 }

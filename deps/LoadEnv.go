@@ -19,7 +19,9 @@ type Config struct {
 	LDAP_BIND_DN       string `mapstructure:"LDAP_BIND_DN"`
 	LDAP_BIND_PASSWORD string `mapstructure:"LDAP_BIND_PASSWORD"`
 
-	AUTH_LDLAP string `mapstructure:"LDAP_BIND_PASSWORD"`
+	AUTH_USE_LDAP              string `mapstructure:"AUTH_USE_LDAP"`
+	AUTH_ALLOW_REGISTER        string `mapstructure:"AUTH_ALLOW_REGISTER"`
+	AUTH_ALLOW_FORGOT_PASSWORD string `mapstructure:"AUTH_ALLOW_FORGOT_PASSWORD"`
 }
 
 func LoadConfig(path string) (config Config, err error) {
