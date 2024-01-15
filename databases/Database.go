@@ -1,12 +1,14 @@
 package databases
 
 import (
+	"company/myproject/deps"
 	"fmt"
 	"log"
-	"{project_package}/deps"
+	"sync"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+	"gorm.io/gorm/schema"
 )
 
 var DB *gorm.DB
@@ -20,4 +22,24 @@ func ConnectDB(config *deps.Config) {
 		log.Fatal("Failed to connect to the Database")
 	}
 	fmt.Println("? Connected Successfully to the Database")
+}
+
+func GetDatabaseFields(out interface{}) *schema.Schema {
+
+	s, err2 := schema.Parse(&out, &sync.Map{}, DB.NamingStrategy)
+	if err2 != nil {
+		panic("failed to parse schema")
+	}
+	return s
+
+}
+func GetFieldNames(out interface{}) []string {
+
+	s := GetDatabaseFields(out)
+	var fields []string
+	for _, field := range s.Fields {
+		fields = append(fields, field.DBName)
+	}
+	return fields
+
 }

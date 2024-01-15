@@ -4,11 +4,11 @@ import (
 	"log"
 	"net/http"
 
-	auth "{project_package}/controller"
-	"{project_package}/databases"
-	"{project_package}/deps"
-	"{project_package}/docs"
-	middlewares "{project_package}/middleware"
+	auth "company/myproject/apps/auth"
+	user "company/myproject/apps/users"
+	"company/myproject/databases"
+	"company/myproject/deps"
+	"company/myproject/docs"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -34,14 +34,13 @@ func main() {
 		})
 	})
 	v1 := r.Group("/auth/v1")
-	{
-		v1.POST("/login", auth.Login)
-		protected := v1.Group("/user")
-		protected.Use(middlewares.JwtAuthMiddleware())
-		protected.GET("/profile", auth.Profile)
-		// v1.POST("/read", readEndpoint)
-	}
+
+	auth.RegisterRoute(v1, "/")
+
+	crud := v1.Group("/crud")
+	user.RegisterRoute(crud, "/user")
+
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
-	r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
+	r.Run()
 }

@@ -1,11 +1,11 @@
 package main
 
 import (
+	"company/myproject/databases"
+	"company/myproject/deps"
 	"fmt"
 	"log"
-	"{project_package}/databases"
-	"{project_package}/deps"
-	"{project_package}/models"
+	"os/user"
 )
 
 func init() {
@@ -18,6 +18,6 @@ func init() {
 }
 
 func main() {
-	databases.DB.AutoMigrate(&models.User{})
+	databases.DB.AutoMigrate(&user.User{})
 	fmt.Println("? Migration complete")
 }

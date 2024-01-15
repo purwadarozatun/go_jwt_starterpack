@@ -18,6 +18,8 @@ type Config struct {
 	LDAP_PORT          int    `mapstructure:"LDAP_PORT"`
 	LDAP_BIND_DN       string `mapstructure:"LDAP_BIND_DN"`
 	LDAP_BIND_PASSWORD string `mapstructure:"LDAP_BIND_PASSWORD"`
+
+	AUTH_LDLAP string `mapstructure:"LDAP_BIND_PASSWORD"`
 }
 
 func LoadConfig(path string) (config Config, err error) {

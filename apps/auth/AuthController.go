@@ -1,12 +1,12 @@
 package controller
 
 import (
+	user_models "company/myproject/apps/users"
+	"company/myproject/databases"
+	"company/myproject/deps"
+	"company/myproject/dto"
 	"fmt"
 	"net/http"
-	"{project_package}/databases"
-	"{project_package}/deps"
-	"{project_package}/dto"
-	"{project_package}/models"
 
 	"github.com/gin-gonic/gin"
 )
@@ -18,8 +18,8 @@ func Login(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	// deps.DB.Create(&models.User{Name: "Javan", Email: "purwa232@javan.co.id"})
-	var person models.User
+	// deps.DB.Create(&user_models.User{Name: "Javan", Email: "purwa232@javan.co.id"})
+	var person user_models.User
 
 	ok, user, err := deps.AuthenticateLdapUser(loginRequest)
 	if err != nil {
@@ -31,9 +31,9 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	if err := databases.DB.Where(models.User{Email: user["mail"]}).First(&person).Error; err != nil {
+	if err := databases.DB.Where(user_models.User{Email: user["mail"]}).First(&person).Error; err != nil {
 		fmt.Println("Record not found", "creating new user")
-		databases.DB.Create(&models.User{Name: user["givenName"], Email: user["mail"]})
+		databases.DB.Create(&user_models.User{Name: user["givenName"], Email: user["mail"]})
 	}
 	token, err := deps.CreateToken(user["mail"], user["givenName"])
 	if (err) == nil {
@@ -54,9 +54,9 @@ func Profile(c *gin.Context) {
 
 	fmt.Println(email)
 
-	var person models.User
+	var person user_models.User
 
-	if err := databases.DB.Where(models.User{Email: email}).First(&person).Error; err != nil {
+	if err := databases.DB.Where(user_models.User{Email: email}).First(&person).Error; err != nil {
 		c.JSON(200, gin.H{"message": "USER_NOT_FOUND"})
 		return
 	}

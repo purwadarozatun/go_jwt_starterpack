@@ -1,8 +1,8 @@
 package middlewares
 
 import (
+	"company/myproject/deps"
 	"net/http"
-	"{project_package}/deps"
 
 	"github.com/gin-gonic/gin"
 )

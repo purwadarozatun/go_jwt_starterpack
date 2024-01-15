@@ -28,7 +28,7 @@ POSTGRES_PASSWORD=kata_sandi
 
 ## First Setup
 
-Sebelum memulai, ganti semua parameter `{project_package}` dalam kode sumber dengan package yang Anda inginkan, misal `id/kodeku/internal`. Ini akan memastikan bahwa package-path di dalam kode sesuai dengan struktur proyek Anda.
+Sebelum memulai, ganti semua parameter `company/myproject` dalam kode sumber dengan package yang Anda inginkan, misal `id/kodeku/internal`. Ini akan memastikan bahwa package-path di dalam kode sesuai dengan struktur proyek Anda.
 
 ## Instalasi
 

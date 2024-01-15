@@ -1,7 +1,7 @@
 package deps
 
 import (
-	"{project_package}/dto"
+	"company/myproject/dto"
 
 	"github.com/jtblin/go-ldap-client"
 )
